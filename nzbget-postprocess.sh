@@ -1,5 +1,15 @@
 #!/bin/sh -xu
 
+###########################################
+### NZBGET POST-PROCESSING SCRIPT       ###
+
+# FileBot postprocessing script
+#
+# This script triggers the FileBot container via curl
+
+### NZBGET POST-PROCESSING SCRIPT       ###
+###########################################
+
 # Input Parameters
 ARG_PATH="$NZBPP_DIRECTORY"
 ARG_NAME="$NZBPP_NZBNAME"
