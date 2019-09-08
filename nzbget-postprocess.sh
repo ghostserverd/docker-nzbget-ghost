@@ -19,11 +19,14 @@ ARG_LABEL="$NZBPP_CATEGORY"
 CONFIG_OUTPUT="$HOME/Media"
 FILEBOT_PORT=${FILEBOT_PORT:-7676}
 
-curl \
-    --data-urlencode "name=${ARG_NAME}" \
-    --data-urlencode "path=${ARG_PATH}" \
-    --data-urlencode "label=${ARG_LABEL}" \
-    http://filebot:${FILEBOT_PORT}/amc
+FILEBOT_CMD=$(\
+echo curl \
+    --data-urlencode name=\"${ARG_NAME}\" \
+    --data-urlencode path=\"${ARG_PATH}\" \
+    --data-urlencode label=\"${ARG_LABEL}\" \
+    http://filebot:${FILEBOT_PORT}/amc)
+
+echo $FILEBOT_CMD >> /config/filebot.log
 
 # NZBGet Exit Codes
 if [ $? = 0 ]; then
