@@ -27,6 +27,7 @@ echo curl \
     http://filebot:${FILEBOT_PORT}/amc)
 
 echo $FILEBOT_CMD >> /config/filebot.log
+$FILEBOT_CMD
 
 # NZBGet Exit Codes
 if [ $? = 0 ]; then
