@@ -16,6 +16,28 @@ cat <<"EOF"
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 EOF
 
+# copy the default nzbget.conf if nzbget.conf is not already present
+cp -n /usr/local/bin/nzbget.conf /config/nzbget.conf
+chown abc:abc /config/nzbget.conf
+
+# set custom config option
+## set the web user if the variable is not empty
+[[ ! -z "$NZBGET_WEB_USER" ]] && sed -i -E "s|^ControlUsername=.*$|ControlUsername=$NZBGET_WEB_USER|g" /config/nzbget.conf
+
+## set the web pass if the variable is not empty
+[[ ! -z "$NZBGET_WEB_PASS" ]] && sed -i -E "s|^ControlPassword=.*$|ControlPassword=$NZBGET_WEB_PASS|g" /config/nzbget.conf
+
+## set the main dir
+NZBGET_MAIN_DIR=${NZBGET_MAIN_DIR:-/downloads/nzb}
+sed -i -E "s|^MainDir=.*$|MainDir=$NZBGET_MAIN_DIR|g" /config/nzbget.conf
+
+## set the script dir
+NZBGET_SCRIPT_DIR=${NZBGET_SCRIPT_DIR:-/usr/local/bin}
+sed -i -E "s|^ScriptDir=.*$|ScriptDir=$NZBGET_SCRIPT_DIR|g" /config/nzbget.conf
+
+## set the extensions dir to the post-processing script
+sed -i -E "s|^Extensions=.*$|Extensions=nzbget-postprocess.sh|g" /config/nzbget.conf
+
 # only chown the /downloads directory if it is not owned by abc:abc
 CHOWN_DIR=/downloads
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`

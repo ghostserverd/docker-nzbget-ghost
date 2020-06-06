@@ -7,4 +7,5 @@ WORKDIR /usr/local/bin
 
 # add default post process
 COPY nzbget-postprocess.sh nzbget-postprocess.sh
+COPY nzbget.conf nzbget.conf
 RUN chmod +rx nzbget-postprocess.sh
