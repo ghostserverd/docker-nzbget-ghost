@@ -14,12 +14,18 @@
 ARG_PATH="$NZBPP_DIRECTORY"
 ARG_NAME="$NZBPP_NZBNAME"
 ARG_LABEL="$NZBPP_CATEGORY"
-SONARR_CATEGORY=${SONARR_CATEGORY:-"sonarr"}
-RADARR_CATEGORY=${RADARR_CATEGORY:-"radarr"}
 
 # Configuration
 CONFIG_OUTPUT="$HOME/Media"
 FILEBOT_PORT=${FILEBOT_PORT:-7676}
+
+SONARR_CATEGORY=${SONARR_CATEGORY:-"sonarr"}
+SONARR_PORT=${SONARR_PORT:-""}
+SONARR_API_KEY=${SONARR_API_KEY:-""}
+
+RADARR_CATEGORY=${RADARR_CATEGORY:-"radarr"}
+RADARR_PORT=${RADARR_PORT:-""}
+RADARR_API_KEY=${RADARR_API_KEY:-""}
 
 FILEBOT_CMD=$(\
 echo curl \
@@ -36,13 +42,17 @@ REFRESH_URL=""
 
 case $ARG_LABEL in
     $SONARR_CATEGORY)
-        REFRESH_NAME="RescanSeries"
-        REFRESH_URL="http://sonarr:${SONARR_PORT}/api/command?apikey=${SONARR_API_KEY}"
+        if [ $SONARR_PORT != "" ] && [ $SONARR_API_KEY != "" ]; then
+            REFRESH_NAME="RescanSeries"
+            REFRESH_URL="http://sonarr:${SONARR_PORT}/api/command?apikey=${SONARR_API_KEY}"
+	fi
     ;;
 
     $RADARR_CATEGORY)
-        REFRESH_NAME="RescanMovie"
-        REFRESH_URL="http://radarr:${RADARR_PORT}/api/command?apikey=${RADARR_API_KEY}"
+        if [ $RADARR_PORT != "" ] && [ $RADARR_API_KEY != "" ]; then
+            REFRESH_NAME="RescanMovie"
+            REFRESH_URL="http://radarr:${RADARR_PORT}/api/command?apikey=${RADARR_API_KEY}"
+        fi
     ;;
 esac
 
