@@ -27,11 +27,22 @@ RADARR_CATEGORY=${RADARR_CATEGORY:-"radarr"}
 RADARR_PORT=${RADARR_PORT:-""}
 RADARR_API_KEY=${RADARR_API_KEY:-""}
 
+FILEBOT_LABEL=$ARG_LABEL
+case $FILEBOT_LABEL in
+    $SONARR_CATEGORY)
+        FILEBOT_LABEL="tv"
+    ;;
+
+    $RADARR_CATEGORY)
+        FILEBOT_LABEL="movie"
+    ;;
+esac
+
 FILEBOT_CMD=$(\
 echo curl \
     --data-urlencode name=\"${ARG_NAME}\" \
     --data-urlencode path=\"${ARG_PATH}\" \
-    --data-urlencode label=\"${ARG_LABEL}\" \
+    --data-urlencode label=\"${FILEBOT_LABEL}\" \
     http://filebot:${FILEBOT_PORT}/amc)
 
 echo $FILEBOT_CMD >> /config/filebot.log
