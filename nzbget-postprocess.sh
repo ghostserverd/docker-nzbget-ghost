@@ -18,6 +18,7 @@ ARG_LABEL="$NZBPP_CATEGORY"
 # Configuration
 CONFIG_OUTPUT="$HOME/Media"
 FILEBOT_PORT=${FILEBOT_PORT:-7676}
+IGNORE_LABELS=${IGNORE_LABELS:-""}
 
 SONARR_CATEGORY=${SONARR_CATEGORY:-"sonarr"}
 SONARR_PORT=${SONARR_PORT:-""}
@@ -45,6 +46,9 @@ case $FILEBOT_LABEL in
         FILEBOT_LABEL="music"
     ;;
 esac
+
+# exit with success if label should not be processed by filebot
+[ ! -z "$IGNORE_LABELS" ] && case $FILEBOT_LABEL in $IGNORE_LABELS) exit 93;; esac
 
 FILEBOT_CMD=$(\
 echo curl \
