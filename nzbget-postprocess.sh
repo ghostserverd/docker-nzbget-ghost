@@ -77,6 +77,13 @@ case $ARG_LABEL in
             REFRESH_URL="http://radarr:${RADARR_PORT}/api/command?apikey=${RADARR_API_KEY}"
         fi
     ;;
+
+    $LIDARR_CATEGORY)
+        if [ $LIDARR_PORT != "" ] && [ $LIDARR_API_KEY != "" ]; then
+            REFRESH_NAME="RescanArtist"
+            REFRESH_URL="http://lidarr:${LIDARR_PORT}/api/v1/command?apikey=${LIDARR_API_KEY}"
+        fi
+    ;;
 esac
 
 if [ $REFRESH_URL != "" ]; then
