@@ -38,19 +38,19 @@ sed -i -E "s|^ScriptDir=.*$|ScriptDir=$NZBGET_SCRIPT_DIR|g" /config/nzbget.conf
 ## set the extensions dir to the post-processing script
 sed -i -E "s|^Extensions=.*$|Extensions=nzbget-postprocess.sh|g" /config/nzbget.conf
 
-# only chown the /downloads directory if it is not owned by abc:abc
+# only chown the /downloads directory if it is not owned by abc:abc or abc:users
 CHOWN_DIR=/downloads
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
-if [[ $DIR_OWNER != "abc:abc" ]]
+if [[ $DIR_OWNER != "abc:abc" && $DIR_OWNER != "abc:users" ]]
 then
     echo "chowning $CHOWN_DIR please be patient"
     chown -R abc:abc $CHOWN_DIR
 fi
 
-# only chown the /config directory if it is not owned by abc:abc
+# only chown the /config directory if it is not owned by abc:abc or abc:users
 CHOWN_DIR=/config
 DIR_OWNER=`stat -c "%U:%G" $CHOWN_DIR`
-if [[ $DIR_OWNER != "abc:abc" ]]
+if [[ $DIR_OWNER != "abc:abc" && $DIR_OWNER != "abc:users" ]]
 then
     echo "chowning $CHOWN_DIR please be patient"
     chown -R abc:abc $CHOWN_DIR
