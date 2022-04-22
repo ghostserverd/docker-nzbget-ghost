@@ -62,7 +62,7 @@ workflows:
     # min (0-59) hour (0-23) monthday (1-31) month (1-12) weekday (0-6, 0=Sun)
     triggers:
       - schedule:
-          cron: "35 7 * * *"
+          cron: "38 7 * * 6"
           filters:
             branches:
               only:
