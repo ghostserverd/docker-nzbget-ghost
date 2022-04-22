@@ -4,7 +4,7 @@ executors:
     environment:
       IMAGE_NAME: ghostserverd/nzbget
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: cimg/base:stretch
 jobs:
   build:
     executor: docker-publisher
