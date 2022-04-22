@@ -4,7 +4,7 @@ executors:
     environment:
       IMAGE_NAME: ghostserverd/nzbget
     docker:
-      - image: cimg/base
+      - image: cimg/base:stable-20.04
 jobs:
   build:
     executor: docker-publisher
